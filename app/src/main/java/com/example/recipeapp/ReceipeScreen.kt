@@ -2,6 +2,7 @@ package com.example.recipeapp
 
 import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -25,7 +26,8 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.recipeapp.ui.theme.Category
 
 @Composable
-fun ReceipeScreen(modifier:Modifier=Modifier) {
+fun ReceipeScreen(modifier:Modifier=Modifier,
+                  navigateToDetail:(Category)->Unit) {
     val receipeViewModel: MainViewModel = viewModel()
     val viewstate by receipeViewModel.categorystate
     Box(modifier = Modifier.fillMaxSize()) {
@@ -39,7 +41,7 @@ fun ReceipeScreen(modifier:Modifier=Modifier) {
             }
 
             else -> {
-                CatergoryScreen(categories = viewstate.list)
+                CatergoryScreen(categories = viewstate.list,navigateToDetail)
 
             }
         }
@@ -48,24 +50,29 @@ fun ReceipeScreen(modifier:Modifier=Modifier) {
 }
 
 @Composable
-fun CatergoryScreen(categories:List<Category>){
+fun CatergoryScreen(categories:List<Category>,
+                    navigateToDetail:(Category)->Unit
+                    ){
     LazyVerticalGrid(GridCells.Fixed(2),modifier=Modifier.fillMaxSize()) {
        items(categories) {
            category ->
-           CatergoryItem(category =category )
+           CatergoryItem(category =category,navigateToDetail )
        }
     }
 }
 
 // how each items look like
 @Composable
-fun CatergoryItem(category:Category){
+fun CatergoryItem(category:Category,
+                  navigateToDetail:(Category)->Unit){
     Column(modifier= Modifier
         .padding(8.dp)
-        .fillMaxSize(),
+        .fillMaxSize().
+        clickable { navigateToDetail(category) },
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Image(painter = rememberAsyncImagePainter(category.strCategoryThumb), contentDescription =null,
+        Image(painter = rememberAsyncImagePainter(category.strCategoryThumb),
+            contentDescription =null,
             modifier= Modifier
                 .fillMaxSize()
                 .aspectRatio(1f))

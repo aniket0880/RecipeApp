@@ -1,4 +1,17 @@
 pluginManagement {
+
+    pluginManagement {
+        buildscript {
+            repositories {
+                mavenCentral()
+                maven {
+                    url = uri("https://storage.googleapis.com/r8-releases/raw")
+                }
+            }
+            dependencies {
+                classpath("com.android.tools:r8:8.2.24")
+            }
+        }
     repositories {
         google {
             content {
@@ -11,6 +24,8 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -20,5 +35,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "RecipeApp"
-include(":app")
+include(":app")}
+
+
  

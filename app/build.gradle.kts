@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-compose:2.7.4")
+
     //compose viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     //network call
@@ -74,3 +76,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
